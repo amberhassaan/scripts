@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cowPath="/usr/share/cowsay"
+cowfiles=$(find $cowPath -name '*.cow');
+
+cowfilesList=(`echo $cowfiles`);
+
+
+len=${#cowfilesList[@]}
+# using $RANDOM special bash variable
+randIndex=$((RANDOM%len))
+
+cowfile=${cowfilesList[$randIndex]}
+
+if [ -x `which fortune` -a -x `which cowsay` ]; then
+  echo "Using cow file: $cowfile"
+  fortune -ac | cowthink -n -f $cowfile
+fi;
+
