@@ -1,0 +1,31 @@
+A set of tools that I keep in $HOME/bin, but they can be checked out to any directory that is in
+the $PATH variable. 
+
+align  -  is a script that aligns columns of text in table style
+
+=====================================
+
+calc
+calc.py
+hexCalc.pl
+
+are command line calculators that accept perl or pythong syntax. hexCalc.pl prints results
+in hex. 
+
+=======================================
+
+espresso - logic minimization program copied from SiS/Vis
+
+
+monitorTemp.sh -  useful for linux laptops for monitoring temperature
+
+mooo - Uses cowsay and fortune programs to print a welcome message on login (called from bashrc)
+
+svnvimdiff.sh - used by svn to call vimdiff when executing command "svn diff ..."
+
+
+colortest
+256colors2.pl
+
+these are scripts (copied from web), which print out terminal colors. Used to verify
+if your terminal supports 256 colors
