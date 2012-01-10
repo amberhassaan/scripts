@@ -12,8 +12,10 @@ randIndex=$((RANDOM%len))
 
 cowfile=${cowfilesList[$randIndex]}
 
+mstart=' _______'
+mend=' -------'
 if [ -x `which fortune` -a -x `which cowsay` ]; then
   echo "Using cow file: $cowfile"
-  fortune -ac | cowthink -n -f $cowfile
+  fortune -ac | cowthink -n -f $cowfile | sed "/$mstart/,/$mend/ s/^(\\|)$//g"
 fi;
 
