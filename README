@@ -29,3 +29,10 @@ colortest
 
 these are scripts (copied from web), which print out terminal colors. Used to verify
 if your terminal supports 256 colors
+
+
+footprint.sh - sums the amount of memory taken by multiple instances of a process
+               e.g. run footprint.sh 'chrom*'
+
+userMem.sh -   sums and sorts the total amount of memory taken by user processes as reported by 'ps'
+               Useful to find the processes with major memory usage
