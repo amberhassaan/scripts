@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # sums and sorts the total amount of memory taken by user processes as reported by 'ps'
+# Also sums memory usage of multiple instances of same process
 # Useful to find the processes with most memory usage
+
 
 RSS=6
 NAME=11
