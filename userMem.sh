@@ -22,6 +22,6 @@ ps aux | awk "{ sum += \$$RSS; print\$$RSS,\$$NAME} END { print sum, \"Total_use
     if (NR==1) { tot=\$1; }; \
     pct=100*\$1/tot; sum += pct; \
     if (pct >= cutoff) { \
-      printf \"%-60s, %4.3f MB, %2.3f%%, running_sum=%2.3f%%\\n\", \$2, (\$1/1024), pct, (sum-100); \
+      printf \"%-60s, %4.3f MB, %2.3f%%, running_sum = %2.3f%%\\n\", \$2, (\$1/1024), pct, (sum-100); \
     } \
   }"
