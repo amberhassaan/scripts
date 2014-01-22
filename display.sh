@@ -20,13 +20,19 @@ if [ "$mode" != "single" ] ; then
     echo "Could not find an external output";
   fi;
 else
-  outputs=$(xrandr | grep ' disconnected ' | awk '{ print $1; }' | tr '\n' ' ');
-  echo $outputs;
-  for o in $outputs; do 
-    cmd="xrandr --output $o --off"
+  if [ "X$external" != "X" ]; then 
+    cmd="xrandr --output $external --off"
     echo "Executing: $cmd"
     eval $cmd;
-  done;
+  else
+    outputs=$(xrandr | grep ' disconnected ' | awk '{ print $1; }' | tr '\n' ' ');
+    echo $outputs;
+    for o in $outputs; do 
+      cmd="xrandr --output $o --off"
+      echo "Executing: $cmd"
+      eval $cmd;
+    done;
+  fi;
 fi;
 
 
