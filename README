@@ -1,11 +1,10 @@
-A set of tools that I keep in $HOME/bin, but they can be checked out to any directory that is in
-the $PATH variable. 
+A set of scripts to help with day-to-day tasks
 
 align  -  is a script that aligns columns of text in table style
 
 =====================================
 
-calc
+calc.pl
 calc.py
 hexCalc.pl
 
@@ -13,9 +12,6 @@ are command line calculators that accept perl or pythong syntax. hexCalc.pl prin
 in hex. 
 
 =======================================
-
-espresso - logic minimization program copied from SiS/Vis
-
 
 monitorTemp.sh -  useful for linux laptops for monitoring temperature
 
@@ -36,4 +32,4 @@ footprint.sh - sums the amount of memory taken by multiple instances of a proces
 
 userMem.sh -   sums and sorts the total amount of memory taken by user processes as reported by 'ps'
                Also sums memory usage of multiple instances of same process
-               Useful to find the processes with major memory usage
+               Useful to find the processes with major memory usage, e.g., google-chrome
