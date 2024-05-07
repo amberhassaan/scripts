@@ -16,14 +16,17 @@ else
     # Make sure we are not already in a tmux session
     if [[ -z "$TMUX" ]]; then
         # Kill defunct sessions first
-        old_sessions=$(tmux ls 2> /dev/null | egrep '^[0-9]{14}.*[0-9]+)$' | cut -f 1 -d:)
+        old_sessions=$(tmux ls 2> /dev/null | grep "$base_session-alt" | grep -v 'attached' | cut -f 1 -d:)
         for old_session_id in $old_sessions; do
             tmux kill-session -t $old_session_id
         done
 
         echo "Launching copy of base session $base_session ..."
         # Session is is date and time to prevent conflict
-        session_id=`date +%Y%m%d%H%M%S`
+        # session_id=`date +%Y%m%d%H%M%S`
+        # session id is '$base_session-alt-$count'
+        n=$(tmux ls | grep "$base_session"| wc -l)
+        session_id="$base_session-alt-$n"
         # Create a new session (without attaching it) and link to base session 
         # to share windows
         tmux new-session -t $base_session -s $session_id
