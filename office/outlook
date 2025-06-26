@@ -1,0 +1,2 @@
+#!/bin/bash
+google-chrome --app=https://outlook.office.com/mail/ --class=ICE-SSB-outlook --user-data-dir=/home/mhassaan/.config/google-chrome

@@ -1,0 +1,2 @@
+#!/bin/bash
+google-chrome --app=https://teams.microsoft.com/ --class=ICE-SSB-microsoftteams --user-data-dir=/home/mhassaan/.config/google-chrome
