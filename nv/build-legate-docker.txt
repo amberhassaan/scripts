@@ -1,0 +1,36 @@
+docker run -it -v ~/repos:/home/ubuntu/repos
+nvidia/cuda:12.9-devel-ubuntu24.04
+# Get them
+
+git clone git@github.com:nv-legate/legate.internal.git
+
+git clone git@github.com:rapidsai/legate-dataframe.git
+
+cd legate.internal
+
+# generate conda env script
+
+./scripts/generate-conda-envs.py --ctk 12.9 --os linux --compilers --ucx
+--openmpi
+
+# Merge conda envs together (Legate env and Legate-dataframe env)
+
+conda-merge path/to/legate/*generated_conda_env_file.yaml
+path/to/legate-dataframe/conda/environments/all_cuda*.yaml > merged_env.yaml
+
+# Create new Conda env from merged env file
+
+conda env create -f merged_env.yaml -n ldf-test
+
+cd /path/to/legate/src
+
+./configure  --with-ucx --with-clean  --with-python --build-type debug
+--with-tests --with-cuda
+
+# export path as instructed at the end of configure step
+
+make && pip install .
+
+cd /path/to/legate-dataframe/src
+
+./build.sh -v -g liblegate_dataframe legate_dataframe

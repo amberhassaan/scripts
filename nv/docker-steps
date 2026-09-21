@@ -1,0 +1,99 @@
+docker run --gpu all -it -v ~/repos:/home/ubuntu/repos
+nvidia/cuda:12.9-devel-ubuntu24.04
+
+# add questing repos to source.list.d
+cat >> /etc/apt/source.list.d/ubuntu.sources <<EOF
+
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: questing
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF
+
+apt update
+
+# apt install wget
+
+# wget https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.6/hdf5-1.14.6-ubuntu-2404_gcc.deb
+
+# apt-get -f install
+# version limit nccl to the correct version
+
+apt install --no-install-recommends python3 libhdf5-dev
+
+apt-get install libnccl-dev=2.28.9-1+cuda13.0 libnccl2=2.28.9-1+cuda13.0
+
+
+apt-get update
+apt-get install --reinstall binutils
+apt-get install -y git cmake python3 pyhton3-pip python3-virtualenv python3-dev
+
+
+cd /home/ubuntu/repos/legate
+
+mkdir debug
+
+python3 -m virtualenv ./debug/lgpy
+
+source ./debug/lgpy/bin/activate
+
+./configure --LEGATE_ARCH=debug --build-type debug --with-python --with-cuda --cuda-arch native --force --with-hdf5 --with-mpi --with-ucx --legion-spy 
+
+
+pip install .
+
+pip install setuptools scikit-build
+
+apt install cutensor-cuda-12 cusolvermp-cuda-12 libopenblas-dev
+
+cd cupynumeric && CC=blah CXX=blah ./install.py --clean --verbose --debug -j 16 --cuda --arch native
+
+# deps for legate boost
+#
+pip install rapids-build-backend scikit-build-core
+
+edit legion/api/types.h to remove stupid #error
+
+cd legate-boost
+
+./build.sh -v --g legate-boost
+###################################################################################
+# outside docker
+cd legate
+./scripts/generate-conda-envs.py --os linux --ctk 12.9 --compilers --openmpi --ucx --cupynumeric
+
+# inside docker
+apt-get install git wget nano
+
+cd /home/ubuntu
+
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+
+./Minforge3 -b -c -p /opt/conda
+
+source ~/.bashrc
+
+cd /home/ubuntu/repos/legate
+
+conda create env -n legate -f env...yaml
+
+./configure --LEGATE_ARCH=debug --build-type debug --with-python --with-cuda --with-hdf5 --with-mpi --with-ucx --legion-spy 
+
+make -j 
+
+pip install .
+
+cd /home/ubuntu/repos/cupynumeric
+
+./install.py --clean --verbose --debug -j 16 --cuda
+
+
+# legate boost
+
+mamba install scikit-build-core
+mamba install -c rapidsai rapids-build-backend
+
+
+# legate dataframe
+mamba install libarrow-acero pyarrow libparquet cuda-nvrtc-dev=12.9
