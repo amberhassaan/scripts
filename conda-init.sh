@@ -6,8 +6,8 @@ __conda_setup="$('/home/mhassaan/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /d
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/mhassaan/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/mhassaan/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/mhassaan/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/mhassaan/miniforge3/etc/profile.d/conda.sh"
     else
         export PATH="/home/mhassaan/miniconda3/bin:$PATH"
     fi
