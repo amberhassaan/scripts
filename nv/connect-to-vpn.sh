@@ -1,6 +1,15 @@
 #!/bin/bash 
 
+SERVER="ngvpn51" # NJ
+# SERVER="ngvpn05" # MA
+# SERVER="ngvpn08" # Toronto
+
+# get sudo cached first up
+sudo ls /bin > /dev/null
+
 # First command
-eval $(openconnect --useragent="AnyConnect-compatible OpenConnect VPN Agent" --external-browser $(which google-chrome-stable) --authenticate ngvpn02.vpn.nvidia.com/SAML-EXT)
+eval $(openconnect --useragent="AnyConnect-compatible OpenConnect VPN Agent" --external-browser $(which google-chrome-stable) --authenticate $SERVER.vpn.nvidia.com/SAML-EXT)
 # Second command
-[ -n ["$COOKIE"] ] && echo -n "$COOKIE" | sudo openconnect --cookie-on-stdin $CONNECT_URL --servercert $FINGERPRINT --resolve $RESOLVE
+if [ -n "$COOKIE" ] ; then 
+  echo -n "$COOKIE" | sudo openconnect --cookie-on-stdin $CONNECT_URL --servercert $FINGERPRINT --resolve $RESOLVE
+fi;
